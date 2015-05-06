@@ -1,7 +1,7 @@
 package lilymsg;
 
 enum Status{
-	SUCCESS = 0s;
+	SUCCESS = 0;
 	FAIL = 1;
 }
 enum MsgType{
