@@ -12,7 +12,7 @@ date:2015-05-05
 #include <muduo/net/protobuf/ProtobufCodecLite.h>
 
 #include "dispatcher.h"
-#include "protoc/lily.pb.pb.h"
+#include "msgptr.h"
 
 #include <boost/bind.hpp>
 

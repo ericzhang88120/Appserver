@@ -2,10 +2,11 @@
 
 server::server(EventLoop * loop,const InetAddress & listenAddr)
 :server_(loop, listenAddr, "Appsvr"),
- dispatcher_(boost::bind(&server::onUnknownMessage,this,_1,_2,_3))
+ dispatcher_(boost::bind(&server::onUnknownMessage,this,_1,_2,_3)),
+ codec_()
 {
 	server_.setConnectionCallback(boost::bind(&server::onConnection,this,_1));
-	server_.setMessageCallback(boost::bind(&server::onMessage,this,_1,_2,_3));
+	server_.setMessageCallback(boost::bind(&ProtobufCodecLite::onMessage, &codec_, _1, _2, _3)));
 
 	//register callback func
 	dispatcher_.registerMessageCallback(boost::bind(&server));
