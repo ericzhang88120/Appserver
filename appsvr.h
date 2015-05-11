@@ -13,6 +13,7 @@ date:2015-05-05
 
 #include "dispatcher.h"
 #include "msgptr.h"
+#include "lilycodec.h"
 
 #include <boost/bind.hpp>
 
@@ -33,7 +34,7 @@ private:
 	void onGetAuthCode(const TcpConnectionPtr& conn,Buffer* buf,Timestamp);
 
 	TcpServer server_;
-	ProtobufCodecLite codec_;
+	lilycodec codec_;
 	ProtobufDispatcher dispatcher_;
 };
 #endif
