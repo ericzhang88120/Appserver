@@ -9,11 +9,10 @@ date:2015-05-05
 #include <muduo/base/Mutex.h>
 #include <muduo/net/EventLoop.h>
 #include <muduo/net/TcpServer.h>
-#include <muduo/net/protobuf/ProtobufCodecLite.h>
 
 #include "dispatcher.h"
 #include "msgptr.h"
-#include "lilycodec.h"
+#include "codec.h"
 
 #include <boost/bind.hpp>
 
@@ -28,13 +27,12 @@ public:
 	void start();
 private:
 	void onConnection(const TcpConnectionPtr& conn);//set connect callback
-	void onMessage(const TcpConnectionPtr& conn,Buffer* buf,Timestamp);
-	void onUnknownMessage(const TcpConnectionPtr& conn,Buffer* buf,Timestamp);
+	void onUnknownMessage(const TcpConnectionPtr& conn,const MessagePtr& buf,Timestamp);
 
-	void onGetAuthCode(const TcpConnectionPtr& conn,Buffer* buf,Timestamp);
+    void onGetAuthCode(const TcpConnectionPtr& conn,const CSGetCodePtr& message,muduo::Timestamp);
 
 	TcpServer server_;
-	lilycodec codec_;
+	ProtobufCodec codec_;
 	ProtobufDispatcher dispatcher_;
 };
 #endif

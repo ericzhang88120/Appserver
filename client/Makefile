@@ -1,9 +1,9 @@
 #APP SERVER MAKEFILE
 
-Target=Appserver
+Target=Appclient
 CXX=g++
 CPPFLAG=-g -Werror
-SRC=appserver.cc appsvr.cc codec.cc protoc/lily.pb.cc
+SRC=protoc/lily.pb.cc main.cc
 INCLUDE = thirdparty/include  
 OBJ=$(SRC:.cc=.o)
 
@@ -16,5 +16,4 @@ $(OBJ):%.o:%.cc
 .PHONY:clean
 clean:
 	-rm -f *.o
-	-rm -f protoc/*.o
 	-rm $(Target)
