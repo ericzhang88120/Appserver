@@ -16,5 +16,4 @@ $(OBJ):%.o:%.cc
 .PHONY:clean
 clean:
 	-rm -f *.o
-	-rm -f protoc/*.o
 	-rm $(Target)
