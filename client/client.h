@@ -16,9 +16,15 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "protoc/lily.pb.h"
+#include <google/protobuf/descriptor.h>
+#include <google/protobuf/message.h>
+
+#include <vector>
 
 #define MAX_LEN 256
 
+using namespace std;
+/*
 struct message
 {
     int32_t len;
@@ -27,6 +33,7 @@ struct message
     char data[256];
     int32_t checksum;
 }
+*/
 
 class client
 {
@@ -37,6 +44,12 @@ private:
     char _ipaddr[MAX_LEN];
     int _port;
     int _fd;
+    vector<char> buffer;
+
+    void fillpacket(const google::protobuf::Message& message,vector<char>* buffer);
+    void appenddata(void* data,size_t len,vector<char>::iterator it);
+    //void appenddata32(int32_t* data,size_t len,vector<char>::iterator* it);
+    
 
     lily::CSGetCode cscodereq;
 

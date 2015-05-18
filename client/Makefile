@@ -3,15 +3,15 @@
 Target=Appclient
 CXX=g++
 CPPFLAG=-g -Werror
-SRC=protoc/lily.pb.cc main.cc
-INCLUDE = thirdparty/include  
+SRC=../protoc/lily.pb.cc main.cc client.cc
+INCLUDE = ../thirdparty/include  
 OBJ=$(SRC:.cc=.o)
 
 all:$(Target)
 $(Target):$(OBJ)
-	$(CXX) $(CPPFLAGS) -o $@ $^ -L thirdparty/lib -lmuduo_base -lmuduo_net -lpthread -lprotobuf
+	$(CXX) $(CPPFLAGS) -o $@ $^ -L ../thirdparty/lib -lmuduo_base -lmuduo_net -lpthread -lprotobuf
 $(OBJ):%.o:%.cc
-	$(CXX) $(CPPFLAGS) -c $< -o $@ -I $(INCLUDE)
+	$(CXX) $(CPPFLAGS) -c $< -o $@ -I $(INCLUDE) 
 
 .PHONY:clean
 clean:
