@@ -1,4 +1,5 @@
 #include "client.h"
+#include <sstream>
 
 
 client::client(const char* ip,int port)
@@ -35,7 +36,18 @@ void client::start()
     
     cscodereq.set_phonenum(12345);
 
-    fillpacket(cscodereq,&buffer);
+    size_t len = 0;
+
+    fillpacket(cscodereq,&buffer,&len);
+
+    std::stringstream oss;
+	for(unsigned int i=0;i < buffer.size();i++){ 
+	oss<<buffer[i]; 
+	} 
+	std::string temp=oss.str(); 
+	const char * buf=temp.c_str();
+
+	send(_fd,buf,len,0);
 
 }
 
@@ -44,7 +56,7 @@ void client::appenddata(void* data,size_t len,vector<char>::iterator it)
     std::copy(static_cast<char*>(data),static_cast<char*>(data)+len,it);
     
 }
-void client::fillpacket(const google::protobuf::Message& message,vector<char>* buffer)
+void client::fillpacket(const google::protobuf::Message& message,vector<char>* buffer,size_t* length)
 {
     const std::string& type = message.GetTypeName();
     int32_t name_len = static_cast<int32_t>(type.size()+1);
@@ -69,6 +81,9 @@ void client::fillpacket(const google::protobuf::Message& message,vector<char>* b
     appenddata(msgType,name_len,it);
     it += name_len;
 
+   	appenddata(msg,byte_size,it);
+
+	*length = len;
     delete msg;
     delete msgType;
 }

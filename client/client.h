@@ -46,7 +46,7 @@ private:
     int _fd;
     vector<char> buffer;
 
-    void fillpacket(const google::protobuf::Message& message,vector<char>* buffer);
+    void fillpacket(const google::protobuf::Message& message,vector<char>* buffer,size_t* length);
     void appenddata(void* data,size_t len,vector<char>::iterator it);
     //void appenddata32(int32_t* data,size_t len,vector<char>::iterator* it);
     
